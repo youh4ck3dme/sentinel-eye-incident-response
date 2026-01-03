@@ -1,0 +1,6 @@
+
+{
+  "name": "Sentinel Eye - Incident Response AI",
+  "description": "An expert security analysis tool that scans logs, screenshots, and audio segments for OWASP threats and fraud, providing real-time risk assessment and defensive actions.",
+  "requestFramePermissions": ["camera", "microphone"]
+}
