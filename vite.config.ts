@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => {
       react(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+        includeAssets: ['favicon.ico', 'robots.txt', 'apple-icon-180.png'],
         manifest: {
           name: 'Sentinel Eye Extreme - Incident Response AI',
           short_name: 'Sentinel Eye',
@@ -26,17 +26,17 @@ export default defineConfig(({ mode }) => {
           orientation: 'portrait',
           icons: [
             {
-              src: 'pwa-192x192.png',
+              src: 'manifest-icon-192.png',
               sizes: '192x192',
               type: 'image/png'
             },
             {
-              src: 'pwa-512x512.png',
+              src: 'manifest-icon-512.png',
               sizes: '512x512',
               type: 'image/png'
             },
             {
-              src: 'pwa-512x512.png',
+              src: 'manifest-icon-512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any maskable'
