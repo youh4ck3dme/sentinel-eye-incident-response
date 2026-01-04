@@ -16,6 +16,7 @@ const SipClient: React.FC = () => {
         { timestamp: '10:01:45', message: 'Aplikácia načítaná', type: 'info' }
     ]);
     const [isConnected, setIsConnected] = useState(false);
+    const [isConnecting, setIsConnecting] = useState(false);
     const logEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -31,6 +32,9 @@ const SipClient: React.FC = () => {
 
     const handleConnect = (e: React.FormEvent) => {
         e.preventDefault();
+        if (isConnecting || isConnected) return;
+
+        setIsConnecting(true);
         addLog(`Pripájanie k ${pbxServer}:${wssPort}...`, 'info');
 
         // Simulate connection process
@@ -38,6 +42,7 @@ const SipClient: React.FC = () => {
             addLog(`Overovanie linky ${lineExtension}...`, 'info');
             setTimeout(() => {
                 setIsConnected(true);
+                setIsConnecting(false);
                 addLog(`Úspešne pripojené k PBX serveru.`, 'success');
             }, 1000);
         }, 800);
@@ -119,10 +124,10 @@ const SipClient: React.FC = () => {
 
                         <button
                             type="submit"
-                            disabled={isConnected}
-                            className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.3em] transition-all relative overflow-hidden group ${isConnected
-                                    ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed border border-zinc-700'
-                                    : 'bg-red-600 text-white hover:bg-red-500 shadow-[0_10px_30px_rgba(220,38,38,0.2)] active:scale-[0.98]'
+                            disabled={isConnected || isConnecting}
+                            className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.3em] transition-all relative overflow-hidden group ${isConnected || isConnecting
+                                ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed border border-zinc-700'
+                                : 'bg-red-600 text-white hover:bg-red-500 shadow-[0_10px_30px_rgba(220,38,38,0.2)] active:scale-[0.98]'
                                 }`}
                         >
                             <div className="relative z-10 flex items-center justify-center gap-3">
@@ -134,11 +139,11 @@ const SipClient: React.FC = () => {
                                 ) : (
                                     <>
                                         <i className="fas fa-bolt"></i>
-                                        PRIPOJIŤ
+                                        {isConnecting ? 'PRIPÁJANIE...' : 'PRIPOJIŤ'}
                                     </>
                                 )}
                             </div>
-                            {!isConnected && (
+                            {!isConnected && !isConnecting && (
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
                             )}
                         </button>
@@ -162,8 +167,8 @@ const SipClient: React.FC = () => {
                             <div key={index} className="flex gap-4 group animate-in slide-in-from-left-2 duration-300">
                                 <span className="text-zinc-600 text-xs whitespace-nowrap pt-1">{log.timestamp}</span>
                                 <span className={`text-xs leading-relaxed ${log.type === 'success' ? 'text-green-500' :
-                                        log.type === 'error' ? 'text-red-500' :
-                                            'text-zinc-300'
+                                    log.type === 'error' ? 'text-red-500' :
+                                        'text-zinc-300'
                                     }`}>
                                     {log.message}
                                 </span>
