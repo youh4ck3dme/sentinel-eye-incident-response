@@ -1,0 +1,53 @@
+/* HackerBanner.css */
+
+/* Kontajner */
+.hacker-banner-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    /* Výška 4px */
+    background-color: #000000;
+    overflow: hidden;
+    z-index: 99999;
+    pointer-events: none;
+    /* Kliknutia prechádzajú cez banner */
+    user-select: none;
+    border-top: 1px solid rgba(0, 255, 0, 0.3);
+    /* Jemná linka pre zvýraznenie hranice */
+}
+
+/* Bežiaci pás */
+.hacker-banner-scroller {
+    display: flex;
+    width: fit-content;
+    /* Dôležité: zabezpečí plynulý pohyb */
+    animation: hacker-scroll 20s linear infinite;
+    will-change: transform;
+}
+
+/* Samotný text */
+.hacker-text {
+    font-family: 'Anonymous Pro', 'Courier New', monospace;
+    font-size: 3px;
+    /* Písmo 3px */
+    line-height: 4px;
+    /* Centrovanie */
+    color: #00ff00;
+    white-space: nowrap;
+    /* Pre lepšie vykreslenie tak malého písma */
+    -webkit-font-smoothing: none;
+}
+
+/* Animácia */
+@keyframes hacker-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        /* Posun o polovicu šírky (keďže máme 2 sady textu) */
+        transform: translateX(-50%);
+    }
+}

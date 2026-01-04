@@ -7,6 +7,7 @@ import CountermeasureControl from './components/CountermeasureControl';
 import { ErrorBoundary, SectionErrorBoundary } from './components/errors';
 import OfflineIndicator from './components/OfflineIndicator';
 import SipClient from './components/SipClient';
+import HackerBanner from './components/HackerBanner';
 import { analyzeThreat, generateSecurityTTS } from './geminiService';
 import { LogEntry, SecurityAnalysisResponse, ThreatStatus } from './types';
 
@@ -158,6 +159,7 @@ const App: React.FC = () => {
           </div>
         </div>
       </footer>
+      <HackerBanner />
     </ErrorBoundary>
   );
 };
